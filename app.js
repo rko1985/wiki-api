@@ -27,6 +27,21 @@ app.get('/articles', async function(req, res){
     }
 });
 
+app.post('/articles', async function(req, res){
+    try {
+        const newArticle = await new Article({
+            title: req.body.title,
+            content: req.body.content
+        });
+
+        newArticle.save();
+        res.send("Successfully added a new")
+
+    } catch (err) {
+        res.send(err);
+    }
+})
+
 
 app.listen(3000, function() {
     console.log("Server started on port 3000");
