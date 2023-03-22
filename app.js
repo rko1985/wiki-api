@@ -40,8 +40,16 @@ app.post('/articles', async function(req, res){
     } catch (err) {
         res.send(err);
     }
-})
+});
 
+app.delete('/articles', async function(req, res){
+    try{
+        await Article.deleteMany();
+        res.send("All articles deleted successfully!");
+    } catch (err){
+        res.send(err);
+    }
+});
 
 app.listen(3000, function() {
     console.log("Server started on port 3000");
