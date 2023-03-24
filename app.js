@@ -50,6 +50,21 @@ app.route("/articles")
         }
 });
 
+app.route('/article/:articleTitle')
+    .get(async function(req, res){
+        try {
+            const articleTitle = req.params.articleTitle
+            const foundArticle = await Article.findOne({title: articleTitle});
+            if(foundArticle) {
+                res.send(foundArticle);
+            } else {
+                res.send("No articles matching that title were found.");
+            }
+        } catch (err) {
+            res.send(err);
+        }
+    });
+
 app.listen(3000, function() {
     console.log("Server started on port 3000");
 });
