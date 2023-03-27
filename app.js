@@ -63,6 +63,20 @@ app.route('/article/:articleTitle')
         } catch (err) {
             res.send(err);
         }
+    })
+    .put(async function(req, res){
+        console.log(req.body.title);
+        console.log(req.body.content);
+        try {
+            await Article.replaceOne(
+                {title: req.params.articleTitle},
+                {title: req.body.title, content: req.body.content},
+                {overwrite:true},
+            );
+            res.send("Successfully updated article.")            
+        } catch (err) {
+            res.send(err);
+        }
     });
 
 app.listen(3000, function() {
