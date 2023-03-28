@@ -77,6 +77,18 @@ app.route('/article/:articleTitle')
         } catch (err) {
             res.send(err);
         }
+    })
+    .patch(async function(req, res){
+        console.log(req.body);
+        try {
+            await Article.updateOne(
+                {title: req.params.articleTitle},
+                {$set: req.body},
+            );
+            res.send("Successfully updated article.")            
+        } catch (err) {
+            res.send(err);
+        }
     });
 
 app.listen(3000, function() {
