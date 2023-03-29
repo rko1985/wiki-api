@@ -79,13 +79,22 @@ app.route('/article/:articleTitle')
         }
     })
     .patch(async function(req, res){
-        console.log(req.body);
         try {
             await Article.updateOne(
                 {title: req.params.articleTitle},
                 {$set: req.body},
             );
             res.send("Successfully updated article.")            
+        } catch (err) {
+            res.send(err);
+        }
+    })
+    .delete(async function(req, res){
+        try {
+            await Article.deleteOne(
+                {title: req.params.articleTitle}
+            );
+            res.send("Successfully deleted article.")            
         } catch (err) {
             res.send(err);
         }
